@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Css/order.css">
+    <title>Order Page</title>
+</head>
+<body>
+<!--navbar-->
+<div class="navbar">
+    <div class="main-logo">
+        <a href="Homepage.html"><img src="images/LOGO.png" alt="Tool Titan Logo"></a>
+    </div>
+    <h1>TOOL TITAN</h1>
+    <img class="profile" src="images/OIP (7).jpeg" alt="Profile Picture">
+</div>
+<div class="pro-ord">
+    <h2>Product Order</h2>
+    <div id="product-details">
+        <form action="" method="post">
+            <h3>Product Name: <span id="product-name" name="name"></span></h3>
+            <p>Description: <span id="product-description" name="description"></span></p>
+            <p>Price: Rs. <span id="product-price" name="price"></span></p>
+            <p>Quantity: <input type="number" id="quantity" value="1" min="1" name="quantity"></p>
+            <p>Total Price: Rs. <span id="total-price" name="total_price"></span></p>
+            <input type="hidden" id="hidden-product-name" name="name">
+            <input type="hidden" id="hidden-product-description" name="description">
+            <input type="hidden" id="hidden-product-price" name="price">
+            <input type="hidden" id="hidden-total-price" name="total_price">
+            <button type="submit" id="confirm-order">Confirm Order</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Function to get query parameters from the URL
+    function getQueryParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+
+    // Get product details from the URL
+    const productName = getQueryParameter('name');
+    const productDescription = getQueryParameter('description');
+    const productPrice = parseFloat(getQueryParameter('price'));
+    const quantity = parseInt(getQueryParameter('quantity')) || 1;  // Default to 1 if no quantity is provided
+
+    // Set product details on the page
+    document.getElementById('product-name').textContent = productName;
+    document.getElementById('product-description').textContent = productDescription;
+    document.getElementById('product-price').textContent = productPrice;
+
+    // Update total price when quantity changes
+    const totalPriceElement = document.getElementById('total-price');
+    const quantityElement = document.getElementById('quantity');
+
+    function updateTotalPrice() {
+        const totalPrice = productPrice * quantityElement.value;
+        totalPriceElement.textContent = totalPrice;
+        // Also update hidden total price field
+        document.getElementById('hidden-total-price').value = totalPrice;
+    }
+
+    // Set initial total price
+    updateTotalPrice();
+
+    // Update total price on quantity change
+    quantityElement.addEventListener('input', updateTotalPrice);
+
+    // Populate hidden inputs for form submission
+    document.getElementById('hidden-product-name').value = productName;
+    document.getElementById('hidden-product-description').value = productDescription;
+    document.getElementById('hidden-product-price').value = productPrice;
+</script>
+
+<!-- Success Popup -->
+<div id="success-popup" class="popup" style="display:none;">
+    <h2>Order Successfully Placed!</h2>
+    <button class="popup-button" onclick="closePopup()">OK</button>
+</div>
+
+
+
+<!-- Footer -->
+<div class="main-footer">
+    <div class="footer">
+        <div>
+            <h1>TOOL TITAN</h1>
+            <p id="Contact Us">Contact Us:</p>
+            <p>+96 456 456 8524</p>
+            <p>+96 456 456 8524</p>
+            <p>Email:</p>
+            <p>tooltitan@gmail.com</p>
+        </div>
+        <div>
+            <h3>Social Media</h3>
+            <p>Facebook</p>
+            <p>Twitter</p>
+            <p>Instagram</p>
+            <p>LinkedIn</p>
+            <p>Newsletter</p>
+        </div>
+        <div>
+            <h3>Customer Service</h3>
+            <p>FAQs</p>
+            <p>Shipping & Returns</p>
+            <p>Warranty Information</p>
+            <p>24/7 Customer Support</p>
+        </div>
+        <div>
+            <h3>Resources</h3>
+            <p>Blog</p>
+            <p>Tutorials</p>
+            <p>Product Manuals</p>
+            <p>Safety Guidelines</p>
+        </div>
+        <div>
+            <h3>Legal</h3>
+            <p>Privacy Policy</p>
+            <p>Terms of Service</p>
+            <p>Cookie Policy</p>
+            <p>Accessibility Statements</p>
+        </div>
+    </div>
+    <div class="partners">
+        <h1 class="name">Partners</h1>
+        <img src="images/927487.webp" alt="Partner 1">
+        <img src="images/Husqvarna-Logo.png" alt="Partner 2">
+        <img src="images/TTI_logo-1-1-1024x1024.webp" alt="Partner 3">
+        <img src="images/R.png" alt="Partner 4">
+        <img src="images/kisspng-logo-emblem-robert-bosch-gmbh-brand-trademark-222pro-elektronik-5b6f5733abe0a4.913157591534023475704.jpg" alt="Partner 5">
+    </div>
+    <p class="footer-p">&copy;2024 TOOL TITAN. All rights reserved.&nbsp; &nbsp;privacy policy&nbsp;&nbsp; Terms of Service</p>
+</div>
+</body>
+</html>
