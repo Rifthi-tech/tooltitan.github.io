@@ -10,6 +10,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Drop tables if they exist (in reverse order of dependencies)
 DROP TABLE IF EXISTS `order_items`;
 DROP TABLE IF EXISTS `orders`;
+DROP TABLE IF EXISTS `cart_items`;
 DROP TABLE IF EXISTS `products`;
 DROP TABLE IF EXISTS `users`;
 
@@ -39,13 +40,28 @@ CREATE TABLE `products` (
     CONSTRAINT `fk_products_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `users`(`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Create cart_items table (for shopping cart)
+CREATE TABLE `cart_items` (
+    `cart_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `customer_id` INT UNSIGNED NOT NULL,
+    `product_id` INT UNSIGNED NOT NULL,
+    `quantity` INT NOT NULL DEFAULT 1,
+    `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`cart_id`),
+    INDEX `idx_customer` (`customer_id`),
+    INDEX `idx_product` (`product_id`),
+    UNIQUE KEY `unique_customer_product` (`customer_id`, `product_id`),
+    CONSTRAINT `fk_cart_customer` FOREIGN KEY (`customer_id`) REFERENCES `users`(`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_cart_product` FOREIGN KEY (`product_id`) REFERENCES `products`(`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Create orders table (depends on users)
 CREATE TABLE `orders` (
     `order_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `customer_id` INT UNSIGNED NOT NULL,
     `total_amount` DECIMAL(10,2) NOT NULL,
     `status` VARCHAR(50) DEFAULT 'pending',
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `order_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`order_id`),
     INDEX `idx_customer` (`customer_id`),
     INDEX `idx_status` (`status`),

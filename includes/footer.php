@@ -1,8 +1,7 @@
-        </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-5">
+    <footer class="footer py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -11,17 +10,15 @@
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0">&copy; <?php echo date('Y'); ?> ToolTitan. All rights reserved.</p>
+                    <small class="text-muted">Professional Tool Management Solution</small>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Custom JavaScript -->
     <script>
-        // Auto-hide alerts after 5 seconds
+        // Auto-hide alerts
         document.addEventListener('DOMContentLoaded', function() {
             const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');
             alerts.forEach(function(alert) {
@@ -32,40 +29,28 @@
             });
         });
 
-        // Confirm delete actions
+        // Confirm delete
         function confirmDelete(message = 'Are you sure you want to delete this item?') {
             return confirm(message);
-        }
-
-        // Form validation
-        function validateForm(formId) {
-            const form = document.getElementById(formId);
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    const requiredFields = form.querySelectorAll('[required]');
-                    let isValid = true;
-                    
-                    requiredFields.forEach(function(field) {
-                        if (!field.value.trim()) {
-                            field.classList.add('is-invalid');
-                            isValid = false;
-                        } else {
-                            field.classList.remove('is-invalid');
-                        }
-                    });
-                    
-                    if (!isValid) {
-                        e.preventDefault();
-                        alert('Please fill in all required fields.');
-                    }
-                });
-            }
         }
 
         // Initialize tooltips
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>

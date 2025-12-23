@@ -1,6 +1,4 @@
 <?php
-session_start();
-session_destroy();
-header('Location: loginpage.php');
-exit();
+require_once 'config/bootstrap.php';
+Session::logout();
 ?>

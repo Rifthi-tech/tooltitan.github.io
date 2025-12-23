@@ -17,10 +17,7 @@ include 'includes/header.php';
                         <h5 class="mb-0"><i class="bi bi-box"></i> Supplier Dashboard</h5>
                     </div>
                     <div class="card-body">
-                        <h4>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h4>
-                        <p>You have supplier access to manage products and inventory.</p>
-                        
-                        <div class="row mt-4">
+                        <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="card text-center">
                                     <div class="card-body">
